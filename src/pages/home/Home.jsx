@@ -1,15 +1,22 @@
+import { useContext } from 'react';
+import Menu from '../../components/menu/Menu';
+import { AuthContext } from '../../contexts/Auth.context';
+import { auth } from '../../config/firebase.config';
+import { signOut } from 'firebase/auth';
+
 const Home = () => {
+	const { user } = useContext(AuthContext);
 	return (
 		<>
+			<Menu />
 			<h1>HOME</h1>
-			<p>
-				Lorem ipsum dolor sit amet consectetur adipisicing elit. Distinctio
-				pariatur minus laboriosam! Debitis explicabo et dolores. Nisi ab itaque
-				totam accusamus debitis, voluptates quaerat quam earum delectus ipsum
-				temporibus ad.
-			</p>
+			{user && <button onClick={logout}>Sign Out</button>}
 		</>
 	);
+};
+
+const logout = async () => {
+	await signOut(auth);
 };
 
 export default Home;
