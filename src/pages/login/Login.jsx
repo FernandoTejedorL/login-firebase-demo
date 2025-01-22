@@ -1,10 +1,15 @@
 import { signInWithEmailAndPassword } from 'firebase/auth';
 import Menu from '../../components/menu/Menu';
 import { auth } from '../../config/firebase.config';
-import { useNavigate } from 'react-router-dom';
+import { Navigate, useNavigate } from 'react-router-dom';
+import { useContext } from 'react';
+import { AuthContext } from '../../contexts/Auth.context';
 
 const Login = () => {
 	const navigate = useNavigate();
+	const { user, loading } = useContext(AuthContext);
+	if (loading) return <h2>Loading...</h2>;
+	if (user && !loading) return <Navigate to='/' replace />;
 	return (
 		<>
 			<Menu />
